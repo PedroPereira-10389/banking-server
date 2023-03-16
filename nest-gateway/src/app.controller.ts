@@ -7,6 +7,7 @@ export class AppController {
 
   @Post("/auth")
   authToken(@Body() user: { email: string, password: string }) {
+    const a = 's'
     return this.appService.auth(user);
   }
 
