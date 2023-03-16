@@ -1,0 +1,60 @@
+version: '3'
+services:
+  db:
+    image: postgres
+    container_name: bankingdb
+    restart: always
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: "Postgres2023!"
+      POSTGRES_DB: banking_db
+    ports:
+      - "5432:5432"
+    networks: 
+      - my_network
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin4_container
+    hostname: pgadmin4_container
+    ports:
+      - 15432:80
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "pedronoutel@hotmail.com"
+      PGADMIN_DEFAULT_PASSWORD: "PgAdmin2023!"
+    depends_on:
+        - db
+  gateway:
+    build:
+        context: ./nest-gateway
+        dockerfile: Dockerfile
+    image: gateway
+    hostname: gateway
+    ports:
+        - "3000:3000"
+    container_name: nestjs_gateway_dev
+    restart: always
+    networks:
+      - my_network
+      
+  api:
+    build:
+        context: ./nest-microservice
+        dockerfile: Dockerfile
+    image: microservice
+    hostname: api
+    ports:
+        - "3001:3001"
+    container_name: nestjs_microservice_dev
+    restart: always
+    networks:
+      - my_network
+
+volumes:
+  db-data:
+networks:
+  my_network:
+    driver: bridge
