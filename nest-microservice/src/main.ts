@@ -1,9 +1,8 @@
+import { Logger, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
-import { Transport } from "@nestjs/microservices";
-import { AppModule } from './modules/app.module';
-import { Logger } from "@nestjs/common";
-import { ValidationPipe } from '@nestjs/common';
+import { Transport } from '@nestjs/microservices';
 import { useContainer } from 'class-validator';
+import { AppModule } from './modules/app.module';
 
 const logger = new Logger();
 async function bootstrap() {
@@ -18,9 +17,9 @@ async function bootstrap() {
   const microservice = await app.connectMicroservice({
     transport: Transport.TCP,
     options: {
-      host: "localhost", //api for docker
-      port: 3002
-    }
+      host: 'localhost', //api for docker
+      port: 3002,
+    },
   });
   await app.startAllMicroservices();
   await app.listen(3001).then(() => logger.log('API working'));
