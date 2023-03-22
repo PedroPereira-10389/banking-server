@@ -15,7 +15,11 @@ export class AppController {
 
   @MessagePattern({ cmd: "create" })
   async register(data) {
-    const createUser = await this.user.register(data);
-    return createUser
+    try {
+      await this.user.register(data.user);
+      return { "status": 200, "message": "User created successfully" }
+    } catch (error) {
+      return { "status": 500, "message": error }
+    }
   }
 }

@@ -12,6 +12,7 @@ export class AppController {
 
   @Post("/register")
   register(@Body() user: { email: string, password }) {
+    console.log(user);
     return this.appService.register(user);
   }
 

@@ -12,7 +12,7 @@ export class UtilitiesService {
     constructor(private http: HttpService) { }
     async encryptPassword(password: string) {
         const salt = await bcrypt.genSalt();
-        const hash = await bcrypt.hash(password, password);
+        const hash = await bcrypt.hash(password, salt);
         return hash;
     }
 
