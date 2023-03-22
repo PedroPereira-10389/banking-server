@@ -27,8 +27,8 @@ export class UserService {
     }
 
     async register(user: UserCreateDto): Promise<User> {
-        this.utilities.encryptPassword(user.password)
-        const newUser = this.user.create(user)
+        user.password = await this.utilities.encryptPassword(user.password)
+        const newUser = this.user.save(user)
         return newUser;
     }
 
