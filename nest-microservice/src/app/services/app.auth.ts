@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { HttpServiceService } from '../http-service/http-service.service';
-import { UserService } from '../services/app.user';
+import { UserService } from '../../user/services/app.user';
 
 @Injectable()
 export class AuthService {

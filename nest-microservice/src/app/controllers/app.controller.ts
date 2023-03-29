@@ -1,7 +1,7 @@
 import { Controller } from '@nestjs/common';
 import { MessagePattern } from '@nestjs/microservices';
 import { AuthService } from '../services/app.auth';
-import { UserService } from '../services/app.user';
+import { UserService } from '../../user/services/app.user';
 
 @Controller()
 export class AppController {

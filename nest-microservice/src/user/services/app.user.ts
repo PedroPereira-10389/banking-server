@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import * as bcrypt from 'bcrypt';
-import { UtilitiesService } from 'src/utilities/app.utilities';
-import { UserCreateDto } from 'src/validations/user.validations';
+import { UtilitiesService } from 'src/app/utilities/app.utilities';
+import { UserCreateDto } from 'src/user/validations/user.validations';
 import { Repository } from 'typeorm';
 import { User } from '../entities/user.entity';
 
@@ -28,5 +28,9 @@ export class UserService {
     user.password = await this.utilities.encryptPassword(user.password)
     const newUser = this.user.save(user)
     return newUser;
+  }
+
+  async get(email: string): Promise<User> {
+    return this.user.findOneBy({ email: email })
   }
 }
