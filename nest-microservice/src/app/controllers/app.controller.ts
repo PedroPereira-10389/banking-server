@@ -1,9 +1,10 @@
-import { Controller } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, HttpStatus, Post, UseGuards, Request, Response } from '@nestjs/common';
 import { MessagePattern } from '@nestjs/microservices';
 import { AuthService } from '../services/app.auth';
-import { UserService } from '../services/app.user';
+import { UserService } from '../../user/services/app.user';
+import { AuthGuard } from '../auth.guard';
 
-@Controller()
+@Controller('auth')
 export class AppController {
   constructor(private authenticate: AuthService, private user: UserService) {}
 
@@ -26,5 +27,17 @@ export class AppController {
     } catch (error) {
       return { "status": 500, "message": error }
     }
+  }
+
+  @HttpCode(HttpStatus.OK)
+  @MessagePattern({ cmd: 'authlogin' })
+  signIn(@Body() signInDto: Record<string, any>) {
+    return this.authenticate.signIn(signInDto.email, signInDto.password);
+  }
+
+  @UseGuards(AuthGuard)
+  @MessagePattern({ cmd: 'profile' })
+  getProfile(res: any) {
+    return {res};
   }
 }

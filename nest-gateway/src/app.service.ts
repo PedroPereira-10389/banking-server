@@ -23,4 +23,20 @@ export class AppService {
       .send<string>(pattern, payload)
       .pipe(map((response: string) => ({ response })));
   }
+
+  profile(req: any) {
+    const pattern = { cmd: 'profile' };
+    const payload = req;
+    return this.gatewayProxy
+      .send<any>(pattern, payload)
+      .pipe(map((response: string) => ({ response })));
+  }
+
+  authlogin(user: any) {
+    const pattern = { cmd: 'authlogin' };
+    const payload = user;
+    return this.gatewayProxy
+      .send<string>(pattern, payload)
+      .pipe(map((response: string) => ({ response })));
+  }
 }

@@ -2,7 +2,7 @@ import { Logger, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { Transport } from '@nestjs/microservices';
 import { useContainer } from 'class-validator';
-import { AppModule } from './modules/app.module';
+import { AppModule } from './app/app.module';
 
 const logger = new Logger();
 async function bootstrap() {
