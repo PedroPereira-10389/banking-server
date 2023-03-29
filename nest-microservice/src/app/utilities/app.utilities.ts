@@ -1,10 +1,6 @@
-import { ForbiddenException, Injectable } from "@nestjs/common";
-import { HttpService } from "@nestjs/axios";
-import { map, catchError, Observable } from 'rxjs';
-import { Logger } from "@nestjs/common";
-import { AxiosResponse } from "axios";
+import { HttpService } from '@nestjs/axios';
+import { Injectable, Logger } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
-
 
 const logger = new Logger();
 @Injectable()
@@ -15,6 +11,4 @@ export class UtilitiesService {
         const hash = await bcrypt.hash(password, salt);
         return hash;
     }
-
-
 }
