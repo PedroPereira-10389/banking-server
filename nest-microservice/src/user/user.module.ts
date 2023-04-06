@@ -8,12 +8,15 @@ import { AppController } from '../app/controllers/app.controller';
 import { User } from './entities/user.entity';
 import { HttpServiceService } from '../app/http-service/http-service.service';
 import { UserService } from './services/app.user';
+import { LocalStrategy } from '../app/strategy/local.strategy';
+import { JwtStrategy } from '../app/strategy/jwt.strategy';
+import { AuthGuard } from 'src/app/guards/auth.guard';
 
 @Module({
   imports: [HttpModule, TypeOrmModule.forFeature([User])],
-  providers: [AuthService, UtilitiesService, HttpServiceService, UsersResolver,UserService],
+  providers: [AuthService, UtilitiesService, HttpServiceService, UsersResolver, UserService, LocalStrategy, JwtStrategy],
   controllers: [AppController],
-  exports: [TypeOrmModule,UsersResolver],
-  
+  exports: [TypeOrmModule, UsersResolver],
+
 })
-export class UsersModule {}
+export class UsersModule { }
