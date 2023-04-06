@@ -4,6 +4,7 @@
 
 type Query {
   getUser(email: String!): User!
+  login(email: String!, password: String!): User!
 }
 
 type User {
